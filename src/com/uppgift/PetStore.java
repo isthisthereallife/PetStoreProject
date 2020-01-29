@@ -9,9 +9,4 @@ public class PetStore {
         List<Pet> petsInStore= new ArrayList<>();
 
     }
-    private void addPetsToList(List<Pet> petList){
-        for (int i = 0; i<100;i++){
-            petList.add(new Pet());
-        }
-    }
 }

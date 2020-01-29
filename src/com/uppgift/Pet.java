@@ -2,11 +2,16 @@ package com.uppgift;
 
 public class Pet {
     private String name;
-    private String type;
+    private String species;
 
-    Pet() {
-        //this.name = PetNameGenerator.getOnePetName();
-        this.type = Program.randomIntOneThroughParam(4) % 2 == 0 ? "cat" : "dog";
+    Pet(String name) {
+        this.name = name;
+        this.species = Program.randomIntOneThroughParam(4) % 2 == 0 ? "cat" : "dog";
     }
-
+    public String getName(){
+        return this.name;
+    }
+    public String getSpecies(){
+        return this.species;
+    }
 }
