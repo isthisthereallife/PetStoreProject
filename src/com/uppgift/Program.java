@@ -9,49 +9,72 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Program<T> {
+public class Program {
     List<Person> people;
     List<Pet> pets;
     List<String> petnames;
-    static List<String> peoplenames;
+    List<String> peoplenames;
 
     Program() {
+
         petnames = getNameList(Paths.get("names/petnames.txt"));
         peoplenames = getNameList(Paths.get("names/personnames.txt"));
-
         pets = makePets(petnames);
-        for(Pet p : pets){
-            System.out.println("a "+p.getSpecies()+" called " +p.getName());
+        people = makePeople(peoplenames);
+        for (Person p : people) {
+            assignPetsToPerson(pets, p);
         }
-        people = makePeople();
+        System.out.println(people.get(0).getAnimalFriends().size());
+
+        for (Person person : people) {
+            System.out.println("Person: " + person.getName() + " (" + person.getAge() + ")");
+            for (Pet pet : person.getAnimalFriends()) {
+                System.out.println("Name: " + pet.getName() + " Species: " + pet.getSpecies());
+            }
+        }
+
+
+        Stream.of(people)
+                .filter(x -> x.get(0).getAnimalFriends().size() < 0)
+                .peek(x -> System.out.println(x + "TUTOTOTO")).close();
+
+        //Stream.of(people).flatMap(p -> p.)
+        //people.stream()
+        //.filter(l->l)
+
+        //skapa en ström av folk,
+        // 1. skriv ut namn och djur Person Olle (24) owns the animals: [Cat: Blackie, Cat: Cedric]
+        // 2. sortera efter namn,
+        //          gruppera djur
+        //          skriv ut (e.g Person Kalle (32) owns the animals: [Cat: Sixten, Dog: Balder])
+        // 3. filtrera bort alla som inte har djur,
+        //          sortera efter färst djur
+        //          om endast 1 djur, skriv inte ut som array
+
+
     }
 
-    //TODO
+    public static void assignPetsToPerson(List<Pet> petlist, Person person) {
+        int nrOfAnimals = (int) (Math.random() * 5);
+        //
+        petlist.stream()
+                .limit(nrOfAnimals)
+                .forEachOrdered(person::addAnimalFriend);
+    }
+
     private List<Pet> makePets(List<String> petnames) {
-        Stream.of(petnames)
+        pets = new ArrayList<>();
+        petnames.stream()
                 .peek(System.out::println)
-                .forEach(n -> pets.add(new Pet("h")));
-
-
-        /*List<Pet> pets = new ArrayList<>();
-        for(String name : petnames){
-            pets.add(new Pet(name));
-        }
-        return pets;*/
+                .forEachOrdered(s -> pets.add(new Pet(s)));
         return pets;
     }
 
-
-    /**
-     * ta från listan med personnamn och skapa objekt med varje, där jag skickar in
-     *
-     * @return
-     */
-    private List<Person> makePeople() {
-        //List<T> nameList =
+    private List<Person> makePeople(List<String> peoplenames) {
+        people = new ArrayList<>();
+        peoplenames.stream().forEachOrdered(s -> people.add(new Person(s)));
         return people;
     }
-
 
     private List<String> getNameList(Path path) {
         List<String> nameList = null;
@@ -74,9 +97,4 @@ public class Program<T> {
         }
         return nameList;
     }
-
-    public static int randomIntOneThroughParam(int max) {
-        return (int) (Math.random() * max) + 1;
-    }
-
 }

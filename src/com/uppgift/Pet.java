@@ -6,7 +6,7 @@ public class Pet {
 
     Pet(String name) {
         this.name = name;
-        this.species = Program.randomIntOneThroughParam(4) % 2 == 0 ? "cat" : "dog";
+        this.species = ((int) (Math.random() * 4) + 1) % 2 == 0 ? "Cat" : "Dog";
     }
     public String getName(){
         return this.name;
