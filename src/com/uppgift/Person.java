@@ -1,6 +1,7 @@
 package com.uppgift;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Person {
     private String name;
@@ -13,6 +14,7 @@ public class Person {
     }
     public void addAnimalFriend(Pet pet){
         this.animalFriends.add(pet);
+        pet.setAvailable();
     }
     public String getName(){
         return this.name;
