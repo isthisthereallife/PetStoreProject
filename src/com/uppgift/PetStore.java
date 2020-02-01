@@ -13,9 +13,6 @@ public class PetStore {
         List<Pet> petsInStore = new ArrayList<>();
     }
 
-    public static void getInstance() {
-    }
-
     public static void assignPetsToPerson(Person person) {
         int nrOfAnimals = (int) (Math.random() * 5);
         if (pets.size() < 5) {
