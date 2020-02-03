@@ -1,6 +1,8 @@
 package com.uppgift;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,13 +43,33 @@ public class Person {
         } else if (this.animalFriends.size() == 1) {
             return this.name + " (" + this.age + ") got a " + this.animalFriends.get(0).getSpecies() + " called " + this.animalFriends.get(0).getName() + "\n";
         } else {
-            return this.name + " (" + this.age + ") got these animals: " +
-                    animalFriends.stream().collect(groupingBy(Pet::getSpecies)).entrySet()
+            return this.name + " (" + this.age + ") got these animals: " + animalFriends.stream()
+                    .collect(groupingBy(Pet::getSpecies))
+                    .entrySet()
+                    .stream()
+                    .map(x->x.getKey()+ "s: "+x.getValue().stream().map(Pet::getName).collect(Collectors.joining(", "))).collect(Collectors.joining(" | " ))+"\n";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    /*animalFriends.stream().collect(groupingBy(Pet::getSpecies)).entrySet()
                             .stream()
                             .map(x -> x.getKey() + "s: " + x.getValue()
                                     .stream().map(Pet::getName)
                                     .collect(Collectors.joining(", ")))
                             .collect(Collectors.joining(" | ")) + "\n";
+                    */
         }
     }
 }
