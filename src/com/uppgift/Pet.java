@@ -10,13 +10,16 @@ public class Pet {
         this.species = ((int) (Math.random() * 4) + 1) % 2 == 0 ? "Cat" : "Dog";
         this.available = true;
     }
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
-    public String getSpecies(){
+
+    public String getSpecies() {
         return this.species;
     }
-    public void setAvailable(){
+
+    public void setAvailable() {
         available = false;
     }
 }

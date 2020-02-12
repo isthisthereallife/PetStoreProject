@@ -11,25 +11,17 @@ import java.util.stream.Stream;
 public class NameGenerator {
 
     static List<String> getNameList(Path path) {
-        List<String> nameList = null;
+        List<String> list = null;
         try {
-            nameList = Files.lines(path)
-                    .flatMap(s ->
-                            Stream.of(s.split(", "))
-                    ).flatMap(s ->
-                            Stream.of(s.split("\"*\\d+\\. "))
-                    ).flatMap(s ->
-                            Stream.of(s.split("\""))
-                    ).flatMap(s ->
-                            Stream.of(s.split(" "))
-                    )
-                    .filter(s -> s.length() > 0)
-                    //.peek(System.out::println)
+            list = Files.lines(path)
+                    .flatMap(s -> Stream.of(s.replaceAll("[^a-zA-Z]+", "\n")
+                            .trim()
+                            .split("\n")))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return nameList;
+        return list;
     }
 
 

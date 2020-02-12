@@ -39,37 +39,15 @@ public class Person {
     @Override
     public String toString() {
         if (animalFriends.size() < 1) {
-            return this.name + " (" + this.age + ") got no animal at all\n";
+            return String.format("%s (%d) got no animal at all", this.name, this.age);
         } else if (this.animalFriends.size() == 1) {
-            return this.name + " (" + this.age + ") got a " + this.animalFriends.get(0).getSpecies() + " called " + this.animalFriends.get(0).getName() + "\n";
+            return String.format("%s (%d) got a %s called %s", this.name, this.age, this.animalFriends.get(0).getSpecies(), this.animalFriends.get(0).getName());
         } else {
-            return this.name + " (" + this.age + ") got these animals: " + animalFriends.stream()
+            return String.format("%s (%d) got these %d animals: [%s]", this.name, this.age, animalFriends.size(), animalFriends.stream()
                     .collect(groupingBy(Pet::getSpecies))
                     .entrySet()
                     .stream()
-                    .map(x->x.getKey()+ "s: "+x.getValue().stream().map(Pet::getName).collect(Collectors.joining(", "))).collect(Collectors.joining(" | " ))+"\n";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    /*animalFriends.stream().collect(groupingBy(Pet::getSpecies)).entrySet()
-                            .stream()
-                            .map(x -> x.getKey() + "s: " + x.getValue()
-                                    .stream().map(Pet::getName)
-                                    .collect(Collectors.joining(", ")))
-                            .collect(Collectors.joining(" | ")) + "\n";
-                    */
+                    .map(x -> x.getKey() + "s: " + x.getValue().stream().map(Pet::getName).collect(Collectors.joining(", "))).collect(Collectors.joining(" | ")));
         }
     }
 }
